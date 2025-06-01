@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keleti Reform Ifjúsági Tábor Jelentkezés</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      font-family: 'Segoe UI', sans-serif;
+      color: #ffffff;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 30px 20px;
+      box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+    }
+
+    .header {
+      background: linear-gradient(45deg, #17acca, #262df1);
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .header img {
+      width: 200px;
+      margin-bottom: 10px;
+    }
+
+    h1, h2 {
+      margin: 10px 0;
+      color: #ffa500;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 5px;
+      background-color: #2e2e2e;
+      color: #ffffff;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    input[type="submit"] {
+      background-color: #ffa500;
+      color: #121212;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #ffb733;
+    }
+
+    .parent-info {
+      display: none;
+      background-color: #292929;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .download-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .download-link a {
+      color: #ff9900;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      animation: fadeout 5s forwards;
+    }
+
+    @keyframes fadeout {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://drive.google.com/thumbnail?id=1NI5F0GP6Ygft7pz5SfP7PLU_rqQIFiFc&sz=800" alt="Keleti Reform Logo">
+      <h1>Keleti Reform Ifjúsági Tábor</h1>
+      <h3>Jelentkezési űrlap</h3>
+    </div>
+
+    <form id="jelentkezesForm">
+      <label for="nev">Név:</label>
+      <input type="text" id="nev" name="nev" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="szuldatum">Születési dátum:</label>
+      <input type="date" id="szuldatum" name="szuldatum" required onchange="checkAge()">
+
+      <label for="gyulekezet">Gyülekezet:</label>
+      <select id="gyulekezet" name="gyulekezet" required>
+        <option value="">--Válassz gyülekezetet--</option>
+        <option value="Ajaki Református Egyházközség">Ajaki Református Egyházközség</option>
+        <option value="Anarcsi Református Egyházközség">Anarcsi Református Egyházközség</option>
+        <option value="Barabási Református Egyházközség">Barabási Református Egyházközség</option>
+        <option value="Benki Református Egyházközség">Benki Református Egyházközség</option>
+        <option value="Beregdaróci Református Egyházközség">Beregdaróci Református Egyházközség</option>
+        <option value="Beregsurányi Református Egyházközség">Beregsurányi Református Egyházközség</option>
+        <option value="Berkeszi Református Egyházközség">Berkeszi Református Egyházközség</option>
+        <option value="Besztereci Református Egyházközség">Besztereci Református Egyházközség</option>
+        <option value="Csarodai Református Egyházközség">Csarodai Református Egyházközség</option>
+        <option value="Demecseri Református Egyházközség">Demecseri Református Egyházközség</option>
+        <option value="Dombrádi Református Egyházközség">Dombrádi Református Egyházközség</option>
+        <option value="Dögei Református Egyházközség">Dögei Református Egyházközség</option>
+        <option value="Eperjeskei Református Egyházközség">Eperjeskei Református Egyházközség</option>
+        <option value="Fejércsei Református Egyházközség">Fejércsei Református Egyházközség</option>
+        <option value="Fényeslitkei Református Egyházközség">Fényeslitkei Református Egyházközség</option>
+        <option value="Gégényi Református Egyházközség">Gégényi Református Egyházközség</option>
+        <option value="Gelénesi Református Egyházközség">Gelénesi Református Egyházközség</option>
+        <option value="Gemzsei Református Egyházközség">Gemzsei Református Egyházközség</option>
+        <option value="Gergelyiugornyai Református Egyházközség">Gergelyiugornyai Református Egyházközség</option>
+        <option value="Gulácsi Református Egyházközség">Gulácsi Református Egyházközség</option>
+        <option value="Győröcskei Református Egyházközség">Győröcskei Református Egyházközség</option>
+        <option value="Gyulaházai Református Egyházközség">Gyulaházai Református Egyházközség</option>
+        <option value="Gyüre Református Egyházközség">Gyüre Református Egyházközség</option>
+        <option value="Hetei Református Egyházközség">Hetei Református Egyházközség</option>
+        <option value="Ilki Református Egyházközség">Ilki Református Egyházközség</option>
+        <option value="Jándi Református Egyházközség">Jándi Református Egyházközség</option>
+        <option value="Jékei Református Egyházközség">Jékei Református Egyházközség</option>
+        <option value="Kéki Református Egyházközség">Kéki Református Egyházközség</option>
+        <option value="Kékcsei Református Egyházközség">Kékcsei Református Egyházközség</option>
+        <option value="Kislónya Református Egyházközség">Kislónya Református Egyházközség</option>
+        <option value="Kisvárdai Református Egyházközség">Kisvárdai Református Egyházközség</option>
+        <option value="Kisvarsányi Református Egyházközség">Kisvarsányi Református Egyházközség</option>
+        <option value="Komorói Református Egyházközség">Komorói Református Egyházközség</option>
+        <option value="Kopócsapáti Református Egyházközség">Kopócsapáti Református Egyházközség</option>
+        <option value="Lövőpetri Református Egyházközség">Lövőpetri Református Egyházközség</option>
+        <option value="Mándoki Református Egyházközség">Mándoki Református Egyházközség</option>
+        <option value="Márokpapi Református Egyházközség">Márokpapi Református Egyházközség</option>
+        <option value="Mátyusi Református Egyházközség">Mátyusi Református Egyházközség</option>
+        <option value="Mezőladányi Református Egyházközség">Mezőladányi Református Egyházközség</option>
+        <option value="Nagylónyai Református Egyházközség">Nagylónyai Református Egyházközség</option>
+        <option value="Nagyvarsányi Református Egyházközség">Nagyvarsányi Református Egyházközség</option>
+        <option value="Nyírkarászi Református Egyházközség">Nyírkarászi Református Egyházközség</option>
+        <option value="Nyírlövői Református Egyházközség">Nyírlövői Református Egyházközség</option>
+        <option value="Nyírtassi Református Egyházközség">Nyírtassi Református Egyházközség</option>
+        <option value="Olcsvai Református Egyházközség">Olcsvai Református Egyházközség</option>
+        <option value="Papi Református Egyházközség">Papi Református Egyházközség</option>
+        <option value="Pátrohai Református Egyházközség">Pátrohai Református Egyházközség</option>
+        <option value="Rétközberencsi Református Egyházközség">Rétközberencsi Református Egyházközség</option>
+        <option value="Révaranyosi Református Egyházközség">Révaranyosi Református Egyházközség</option>
+        <option value="Szabolcsbákai Református Egyházközség">Szabolcsbákai Református Egyházközség</option>
+        <option value="Szabolcsveresmarti Református Egyházközség">Szabolcsveresmarti Református Egyházközség</option>
+        <option value="Székelyi Református Egyházközség">Székelyi Református Egyházközség</option>
+        <option value="Tákosi Református Egyházközség">Tákosi Református Egyházközség</option>
+        <option value="Tarpai Református Egyházközség">Tarpai Református Egyházközség</option>
+        <option value="Tiszaadonyi Református Egyházközség">Tiszaadonyi Református Egyházközség</option>
+        <option value="Tiszabezdédi Református Egyházközség">Tiszabezdédi Református Egyházközség</option>
+        <option value="Tiszakanyári Református Egyházközség">Tiszakanyári Református Egyházközség</option>
+        <option value="Tiszakerecsenyi Református Egyházközség">Tiszakerecsenyi Református Egyházközség</option>
+        <option value="Tiszamogyorósi Református Egyházközség">Tiszamogyorósi Református Egyházközség</option>
+        <option value="Tiszaszalkai Református Egyházközség">Tiszaszalkai Református Egyházközség</option>
+        <option value="Tiszaszentmártoni Református Egyházközség">Tiszaszentmártoni Református Egyházközség</option>
+        <option value="Tiszavidi Református Egyházközség">Tiszavidi Református Egyházközség</option>
+        <option value="Tivadari Református Egyházközség">Tivadari Református Egyházközség</option>
+        <option value="Tornyospálcai Református Egyházközség">Tornyospálcai Református Egyházközség</option>
+        <option value="Tuzséri Református Egyházközség">Tuzséri Református Egyházközség</option>
+        <option value="Újkenézi Református Egyházközség">Újkenézi Református Egyházközség</option>
+        <option value="Vámosatyai Református Egyházközség">Vámosatyai Református Egyházközség</option>
+        <option value="Vásárosnaményi Református Egyházközség">Vásárosnaményi Református Egyházközség</option>
+        <option value="Vitkai Református Egyházközség">Vitkai Református Egyházközség</option>
+        <option value="Záhonyi Református Egyházközség">Záhonyi Református Egyházközség</option>
+        <option value="Zsurki Református Egyházközség">Zsurki Református Egyházközség</option>
+      </select>
+
+      <label for="etkezes">Étkezési igény:</label>
+      <select id="etkezes" name="etkezes" required>
+        <option value="">--Válassz--</option>
+        <option value="normal">Normál</option>
+        <option value="laktóz">Laktózmentes</option>
+        <option value="tejfeherje">Tejfehérje-mentes</option>
+        <option value="glutenmentes">Gluténmentes</option>
+        <option value="vegetarianus">Vegetáriánus</option>
+      </select>
+
+      <label for="gyogyszerallergia">Gyógyszerallergia:</label>
+      <textarea id="gyogyszerallergia" name="gyogyszerallergia" rows="2"></textarea>
+
+      <div id="szuloInfo" class="parent-info">
+        <label for="szulo_nev">Szülő neve:</label>
+        <input type="text" id="szulo_nev" name="szulo_nev">
+
+        <label for="szulo_email">Szülő email címe:</label>
+        <input type="email" id="szulo_email" name="szulo_email">
+
+        <label for="szulo_tel">Szülő telefonszáma:</label>
+        <input type="tel" id="szulo_tel" name="szulo_tel">
+      </div>
+
+      <input type="submit" value="Jelentkezem">
+    </form>
+
+    <div id="successMessage" class="success-message">
+      ✅ Sikeres jelentkezés!
+    </div>
+
+    <div class="download-link">
+      📄 <a href="/szuloi-nyilatkozat.pdf" download>Szülői nyilatkozat letöltése</a>
+    </div>
+  </div>
+
+  <script>
+    function checkAge() {
+      const birthDate = new Date(document.getElementById("szuldatum").value);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+      document.getElementById("szuloInfo").style.display = age < 18 ? "block" : "none";
+    }
+
+    document.getElementById("jelentkezesForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      this.reset();
+      document.getElementById("szuloInfo").style.display = "none";
+      const msg = document.getElementById("successMessage");
+      msg.style.display = "block";
+      setTimeout(() => msg.style.display = "none", 5000);
+    });
+  </script>
+</body>
+</html>
