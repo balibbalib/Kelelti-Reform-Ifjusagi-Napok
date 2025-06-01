@@ -280,45 +280,50 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-     document.getElementById("jelentkezesForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+    // Remove the old form submit listener since we'll handle it here
+    const oldSubmitListener = document.getElementById("jelentkezesForm").onsubmit;
+    document.getElementById("jelentkezesForm").onsubmit = null;
 
-    const nev = document.getElementById("nev").value;
-    const email = document.getElementById("email").value;
-    const szuldatum = document.getElementById("szuldatum").value;
-    const gyulekezet = document.getElementById("gyulekezet").value;
-    const etkezes = document.getElementById("etkezes").value;
-    const gyogyszerallergia = document.getElementById("gyogyszerallergia").value;
+    document.getElementById("jelentkezesForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
 
-    const szuloNev = document.getElementById("szulo_nev").value;
-    const szuloEmail = document.getElementById("szulo_email").value;
-    const szuloTel = document.getElementById("szulo_tel").value;
-
-    try {
-      await addDoc(collection(db, "jelentkezesek"), {
-        nev,
-        email,
-        szuldatum,
-        gyulekezet,
-        etkezes,
-        gyogyszerallergia,
-        szuloNev,
-        szuloEmail,
-        szuloTel,
+      // Get form values
+      const formData = {
+        nev: document.getElementById("nev").value,
+        email: document.getElementById("email").value,
+        szuldatum: document.getElementById("szuldatum").value,
+        gyulekezet: document.getElementById("gyulekezet").value,
+        etkezes: document.getElementById("etkezes").value,
+        gyogyszerallergia: document.getElementById("gyogyszerallergia").value,
+        szuloNev: document.getElementById("szulo_nev").value,
+        szuloEmail: document.getElementById("szulo_email").value,
+        szuloTel: document.getElementById("szulo_tel").value,
         timestamp: new Date()
-      });
+      };
 
-      // Reset form
-      document.getElementById("jelentkezesForm").reset();
-      document.getElementById("szuloInfo").style.display = "none";
-      const msg = document.getElementById("successMessage");
-      msg.style.display = "block";
-      setTimeout(() => msg.style.display = "none", 5000);
-    } catch (error) {
-      console.error("Hiba a mentés közben:", error);
-      alert("Hiba történt a jelentkezés mentése közben. Kérlek, próbáld újra.");
-    }
-  });
-</script>
+      // Debug log to verify data
+      console.log("Form data to be sent:", formData);
+
+      try {
+        // Verify data is not empty
+        if (!formData.nev || !formData.email || !formData.szuldatum || !formData.gyulekezet || !formData.etkezes) {
+          throw new Error("Required fields are empty");
+        }
+
+        const docRef = await addDoc(collection(db, "jelentkezesek"), formData);
+        console.log("Document written with ID:", docRef.id);
+
+        // Reset form
+        document.getElementById("jelentkezesForm").reset();
+        document.getElementById("szuloInfo").style.display = "none";
+        const msg = document.getElementById("successMessage");
+        msg.style.display = "block";
+        setTimeout(() => msg.style.display = "none", 5000);
+      } catch (error) {
+        console.error("Error details:", error);
+        alert("Hiba történt a jelentkezés mentése közben: " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
