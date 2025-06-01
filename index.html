@@ -280,7 +280,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    document.getElementById("jelentkezesForm").addEventListener("submit", function(e) {
+     document.getElementById("jelentkezesForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const nev = document.getElementById("nev").value;
@@ -294,29 +294,31 @@
     const szuloEmail = document.getElementById("szulo_email").value;
     const szuloTel = document.getElementById("szulo_tel").value;
 
-    db.collection("jelentkezesek").add({
-      nev,
-      email,
-      szuldatum,
-      gyulekezet,
-      etkezes,
-      gyogyszerallergia,
-      szuloNev,
-      szuloEmail,
-      szuloTel,
-      submittedAt: new Date()
-    })
-    .then(() => {
+    try {
+      await addDoc(collection(db, "jelentkezesek"), {
+        nev,
+        email,
+        szuldatum,
+        gyulekezet,
+        etkezes,
+        gyogyszerallergia,
+        szuloNev,
+        szuloEmail,
+        szuloTel,
+        timestamp: new Date()
+      });
+
+      // Reset form
       document.getElementById("jelentkezesForm").reset();
       document.getElementById("szuloInfo").style.display = "none";
       const msg = document.getElementById("successMessage");
       msg.style.display = "block";
       setTimeout(() => msg.style.display = "none", 5000);
-    })
-    .catch((error) => {
-      alert("Hiba történt a jelentkezés során: " + error.message);
-    });
+    } catch (error) {
+      console.error("Hiba a mentés közben:", error);
+      alert("Hiba történt a jelentkezés mentése közben. Kérlek, próbáld újra.");
+    }
   });
-  </script>
+</script>
 </body>
 </html>
