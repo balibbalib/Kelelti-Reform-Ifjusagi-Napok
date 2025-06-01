@@ -251,15 +251,6 @@
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
       document.getElementById("szuloInfo").style.display = age < 18 ? "block" : "none";
     }
-
-    document.getElementById("jelentkezesForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      this.reset();
-      document.getElementById("szuloInfo").style.display = "none";
-      const msg = document.getElementById("successMessage");
-      msg.style.display = "block";
-      setTimeout(() => msg.style.display = "none", 5000);
-    });
   </script>
   <script type="module">
     // Import the functions you need from the SDKs you need
@@ -280,38 +271,72 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // Debug: Log when Firebase is initialized
+    console.log("Firebase initialized successfully");
+
     // Remove the old form submit listener since we'll handle it here
     const oldSubmitListener = document.getElementById("jelentkezesForm").onsubmit;
     document.getElementById("jelentkezesForm").onsubmit = null;
 
     document.getElementById("jelentkezesForm").addEventListener("submit", async function(e) {
       e.preventDefault();
+      console.log("Form submission started");
+
+      // Debug: Log each form field value individually
+      const formFields = {
+        nev: document.getElementById("nev"),
+        email: document.getElementById("email"),
+        szuldatum: document.getElementById("szuldatum"),
+        gyulekezet: document.getElementById("gyulekezet"),
+        etkezes: document.getElementById("etkezes"),
+        gyogyszerallergia: document.getElementById("gyogyszerallergia"),
+        szulo_nev: document.getElementById("szulo_nev"),
+        szulo_email: document.getElementById("szulo_email"),
+        szulo_tel: document.getElementById("szulo_tel")
+      };
+
+      // Log each field's value and existence
+      Object.entries(formFields).forEach(([key, element]) => {
+        console.log(`Field ${key}:`, {
+          exists: !!element,
+          value: element ? element.value : 'element not found',
+          type: element ? element.type : 'N/A'
+        });
+      });
 
       // Get form values
       const formData = {
-        nev: document.getElementById("nev").value,
-        email: document.getElementById("email").value,
-        szuldatum: document.getElementById("szuldatum").value,
-        gyulekezet: document.getElementById("gyulekezet").value,
-        etkezes: document.getElementById("etkezes").value,
-        gyogyszerallergia: document.getElementById("gyogyszerallergia").value,
-        szuloNev: document.getElementById("szulo_nev").value,
-        szuloEmail: document.getElementById("szulo_email").value,
-        szuloTel: document.getElementById("szulo_tel").value,
+        nev: formFields.nev.value,
+        email: formFields.email.value,
+        szuldatum: formFields.szuldatum.value,
+        gyulekezet: formFields.gyulekezet.value,
+        etkezes: formFields.etkezes.value,
+        gyogyszerallergia: formFields.gyogyszerallergia.value,
+        szuloNev: formFields.szulo_nev.value,
+        szuloEmail: formFields.szulo_email.value,
+        szuloTel: formFields.szulo_tel.value,
         timestamp: new Date()
       };
 
-      // Debug log to verify data
-      console.log("Form data to be sent:", formData);
+      // Debug: Log the complete form data
+      console.log("Complete form data to be sent:", JSON.stringify(formData, null, 2));
 
       try {
         // Verify data is not empty
         if (!formData.nev || !formData.email || !formData.szuldatum || !formData.gyulekezet || !formData.etkezes) {
+          console.error("Validation failed - empty required fields:", {
+            nev: !formData.nev,
+            email: !formData.email,
+            szuldatum: !formData.szuldatum,
+            gyulekezet: !formData.gyulekezet,
+            etkezes: !formData.etkezes
+          });
           throw new Error("Required fields are empty");
         }
 
+        console.log("Attempting to write to Firestore...");
         const docRef = await addDoc(collection(db, "jelentkezesek"), formData);
-        console.log("Document written with ID:", docRef.id);
+        console.log("Successfully wrote document with ID:", docRef.id);
 
         // Reset form
         document.getElementById("jelentkezesForm").reset();
@@ -320,10 +345,17 @@
         msg.style.display = "block";
         setTimeout(() => msg.style.display = "none", 5000);
       } catch (error) {
-        console.error("Error details:", error);
+        console.error("Detailed error information:", {
+          message: error.message,
+          stack: error.stack,
+          name: error.name
+        });
         alert("Hiba történt a jelentkezés mentése közben: " + error.message);
       }
     });
+
+    // Debug: Log when the event listener is attached
+    console.log("Form submit event listener attached");
   </script>
 </body>
 </html>
